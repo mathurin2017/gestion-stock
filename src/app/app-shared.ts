@@ -1,0 +1,1 @@
+export const APP_SHARED = [] as const
