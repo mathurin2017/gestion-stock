@@ -1,8 +1,11 @@
+import { Url } from "src/app/app-enum";
+
 export interface Menu {
     id: string;
     title: string;
     icon: string;
     url: string;
+    active?: boolean;
     subMenu?: Array<Menu>;
 }
 
@@ -23,7 +26,7 @@ export const menuProperties: Array<Menu> = [
                 id: '12',
                 title: 'Statistiques',
                 icon: 'fas fa-chart-bar',
-                url: 'statistiques'
+                url: Url.STATISTIQUES
             }
         ]
     },
@@ -37,13 +40,13 @@ export const menuProperties: Array<Menu> = [
                 id: '21',
                 title: 'Articles',
                 icon: 'fas fa-boxes',
-                url: 'articles'
+                url: Url.ARTICLES
             },
             {
                 id: '22',
                 title: 'Mouvements du stock',
                 icon: 'fab fa-stack-overflow',
-                url: 'mvtstk'
+                url: Url.MVTSTK
             }
         ]
     },
@@ -57,13 +60,13 @@ export const menuProperties: Array<Menu> = [
                 id: '31',
                 title: 'Clients',
                 icon: 'fas fa-users',
-                url: 'clients'
+                url: Url.CLIENTS
             },
             {
                 id: '32',
                 title: 'Commandes clients',
                 icon: 'fas fa-shopping-basket',
-                url: 'commandes-clients'
+                url: Url.COMMANDES_CLIENTS
             }
         ]
     },
@@ -77,13 +80,13 @@ export const menuProperties: Array<Menu> = [
                 id: '41',
                 title: 'Fournisseurs',
                 icon: 'fas fa-users',
-                url: 'fournisseurs'
+                url: Url.FOURNISSEURS
             },
             {
                 id: '42',
                 title: 'Commandes fournisseurs',
                 icon: 'fas fa-truck',
-                url: 'commandes-fournisseurs'
+                url: Url.COMMANDES_FOURNISSEURS
             }
         ]
     },
@@ -97,13 +100,13 @@ export const menuProperties: Array<Menu> = [
                 id: '51',
                 title: 'Categories',
                 icon: 'fas fa-tools',
-                url: 'categories'
+                url: Url.CATEGORIES
             },
             {
                 id: '52',
                 title: 'Utilisateurs',
                 icon: 'fas fa-users-cog',
-                url: 'utilisateurs'
+                url: Url.UTILISATEURS
             }
         ]
     }
