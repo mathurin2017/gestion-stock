@@ -63,7 +63,7 @@ export const menuProperties: Array<Menu> = [
                 id: '32',
                 title: 'Commandes clients',
                 icon: 'fas fa-shopping-basket',
-                url: ''
+                url: 'commandes-clients'
             }
         ]
     },
@@ -83,7 +83,7 @@ export const menuProperties: Array<Menu> = [
                 id: '42',
                 title: 'Commandes fournisseurs',
                 icon: 'fas fa-truck',
-                url: ''
+                url: 'commandes-fournisseurs'
             }
         ]
     },
@@ -97,13 +97,13 @@ export const menuProperties: Array<Menu> = [
                 id: '51',
                 title: 'Categories',
                 icon: 'fas fa-tools',
-                url: ''
+                url: 'categories'
             },
             {
                 id: '52',
                 title: 'Utilisateurs',
                 icon: 'fas fa-users-cog',
-                url: ''
+                url: 'utilisateurs'
             }
         ]
     }

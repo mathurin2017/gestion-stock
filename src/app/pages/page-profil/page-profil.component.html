@@ -1,0 +1,68 @@
+<div class="row m-3">
+    <div class="card col-md-5 text-center">
+        <div class="col">
+            <div class="m-3">
+                <img src="assets/add-user.png" width="200px" height="200px">
+            </div>
+            <div class="m-3">
+                <h2>Mathurin Balacoune</h2>
+                <small class="text-muted">9 rue de la Galtière 44230</small>
+            </div>
+            <div class="m-3 col d-flex gap-3 d-md-flex justify-content-center" *ngIf="!showChangePassword">
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-pencil-alt"></i>&nbsp;
+                    Modifier le profil
+                </button>
+                <button type="button" class="btn btn-warning" (click)="showChangePassword = !showChangePassword">
+                    <i class="fas fa-lock"></i>&nbsp;
+                    Changer le mot de passe
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card col-md-6" style="margin-left: 2em;">
+        <table class="table" *ngIf="!showChangePassword">
+            <tbody>
+                <tr>
+                    <th scope="row">Nom complet</th>
+                    <td>Mathurin Balacoune</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>mathurin.balacoune@gmail.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">Téléphone</th>
+                    <td>00 00 00 00 00</td>
+                </tr>
+                <tr>
+                    <th scope="row">Adresse</th>
+                    <td>9 rue de la galtière</td>
+                </tr>
+                <tr>
+                    <th scope="row">Entreprise</th>
+                    <td>Synchrone</td>
+                </tr>
+            </tbody>
+        </table>
+        <form class="m-3" *ngIf="showChangePassword">
+            <div class="form-group m-3">
+                <input type="password" class="form-control" placeholder="Ancien mot de passe">
+            </div>
+            <div class="form-group m-3">
+                <input type="password" class="form-control" placeholder="Nouveau mot de passe">
+            </div>
+            <div class="form-group m-3">
+                <input type="password" class="form-control" placeholder="Confirmer mot de passe">
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-right: 1em;">
+                <button type="button" class="btn btn-danger" (click)="showChangePassword = !showChangePassword">
+                    <i class="fas fa-ban"></i>&nbsp;Annuler
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <i class="fas fa-save"></i>&nbsp;Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

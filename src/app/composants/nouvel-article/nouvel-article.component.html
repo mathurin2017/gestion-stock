@@ -1,0 +1,55 @@
+<div class="col" style="padding: 1em 3em;">
+    <div class="col-md-12 mb-3">
+        <img src="assets/product.png" class="rounded-circle" width="200px" height="200px" />
+    </div>
+    <hr/>
+    <div class="col-md-12 mb-3">
+        <div class="mb-3">
+            <h2>
+                <i class="fas fa-info-circle blue-color"></i>&nbsp;
+                Information de l'article
+            </h2>
+        </div>
+        <div>
+            <form>
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Code article">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Designation">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Prix unitaire HT">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Taux TVA">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Prix unitaire TTC">
+                    </div>
+                    <div class="col">
+                        <select class="form-control">
+                            <option selected>Selectionner une catégorie</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <app-boutton-action-form
+            (eventCancel)="cancelClick()"
+            (eventSave)="saveClick()"
+        ></app-boutton-action-form>
+    </div>
+</div>

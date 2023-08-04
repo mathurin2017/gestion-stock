@@ -1,0 +1,72 @@
+<div class="col" style="padding: 1em 3em;">
+    <div class="col-md-12 mb-3">
+        <img src="assets/add-user.png" class="rounded-circle" width="200px" height="200px" />
+    </div>
+    <hr/>
+    <div class="col-md-12">
+        <div class="row mb-5 blue-color">
+            <div class="col col-6">
+                <h2>
+                    <i class="fas fa-info-circle"></i>&nbsp;
+                    Information de l'utilisateur
+                </h2>
+            </div>
+            <div class="col col-6">
+                <h2>
+                    <i class="fas fa-home"></i>&nbsp;
+                    Adresse de l'utilisateur
+                </h2>
+            </div>
+        </div>
+        <div>
+            <form>
+                <div class="row mb-3">
+                    <div class="col col-6">
+                        <div class="col mb-3">
+                            <input type="text" class="form-control" placeholder="Nom">
+                        </div>
+                        <div class="col mb-3">
+                            <input type="text" class="form-control" placeholder="Prénom">
+                        </div>
+                        <div class="col mb-3">
+                            <input type="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="col mb-3">
+                            <input type="number" class="form-control" placeholder="Téléphone">
+                        </div>
+                    </div>
+                    <div class="col col-6">
+                        <div class="col mb-3">
+                            <input type="text" class="form-control" placeholder="Adresse 1">
+                        </div>
+                        <div class="col mb-3">
+                            <input type="text" class="form-control" placeholder="Adresse 2">
+                        </div>
+                        <div class="col mb-3">
+                            <input type="text" class="form-control" placeholder="Ville">
+                        </div>
+                        <div class="col mb-3">
+                            <input type="number" class="form-control" placeholder="Code postal">
+                        </div>
+                        <div class="col mb-3">
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option selected>Selectionner un pays</option>
+                                <option>France</option>
+                                <option>Sénégal</option>
+                                <option>Belgique</option>
+                                <option>Italy</option>
+                                <option>Espagne</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <app-boutton-action-form
+            (eventCancel)="cancelClick()"
+            (eventSave)="saveClick()"
+        ></app-boutton-action-form>
+    </div>
+</div>

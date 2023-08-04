@@ -1,0 +1,23 @@
+<div class="col" style="padding: 1em 3em;">
+    <div class="col-md-12 mb-3">
+        <div class="mb-3">
+            <h2>Nouvelle catégorie</h2>
+        </div>
+        <div>
+            <form>
+                <div class="row mb-3">
+                    <input type="text" class="form-control" placeholder="Code catégorie">
+                </div>
+                <div class="row mb-3">
+                    <textarea class="form-control" placeholder="Description"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <app-boutton-action-form
+            (eventCancel)="cancelClick()"
+            (eventSave)="saveClick()"
+        ></app-boutton-action-form>
+    </div>
+</div>

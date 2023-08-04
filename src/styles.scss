@@ -31,3 +31,8 @@ body {
 .red-color {
     color: red !important;
 }
+
+.custum-scroll {
+    max-height: 200px; 
+    overflow-y: scroll;
+}
