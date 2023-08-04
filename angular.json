@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gestion-produit": {
+    "gestion-produit-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gestion-produit",
+            "outputPath": "dist/gestion-produit-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gestion-produit:build:production"
+              "browserTarget": "gestion-produit-front:build:production"
             },
             "development": {
-              "browserTarget": "gestion-produit:build:development"
+              "browserTarget": "gestion-produit-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gestion-produit:build"
+            "browserTarget": "gestion-produit-front:build"
           }
         },
         "test": {
