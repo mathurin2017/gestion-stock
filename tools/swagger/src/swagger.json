@@ -1,0 +1,2175 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Swagger Api Documentation for Gestion stock application",
+    "version" : "0.0.1-SNAPSHOT",
+    "title" : "Swagger Api Documentation for Gestion de stock application",
+    "contact" : {
+      "name" : "Mathurin BALACOUNE",
+      "url" : "https://github.com/mathurin2017",
+      "email" : "mathurin.balacoune@gmail.com"
+    }
+  },
+  "basePath" : "http://localhost:8081/gestion-stock/api",
+  "tags" : [ {
+    "name" : "articles-api"
+  }, {
+    "name" : "authenticate-api"
+  }, {
+    "name" : "categories-api"
+  }, {
+    "name" : "clients-api"
+  }, {
+    "name" : "commandes-clients-api"
+  }, {
+    "name" : "commandes-fournisseurs-api"
+  }, {
+    "name" : "entreprises-api"
+  }, {
+    "name" : "fournisseurs-api"
+  }, {
+    "name" : "mvt-stks-api"
+  }, {
+    "name" : "utilisateurs-api"
+  }, {
+    "name" : "ventes-api"
+  } ],
+  "paths" : {
+    "/articles" : {
+      "get" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Renvoi la liste des articles",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des articles",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ArticleDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer un article",
+        "description" : "Cette méthode permet d'enregistrer un article",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet article est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet article n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Modifier un article",
+        "description" : "Cette méthode permet de modifier un article",
+        "operationId" : "update",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet article est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet article n'est pas valide"
+          }
+        }
+      }
+    },
+    "/articles/category/{idCategory}" : {
+      "get" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Renvoi la liste des articles par catégorie",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des articles par catégorie",
+        "operationId" : "findAllArticleByIdCategorie",
+        "parameters" : [ {
+          "name" : "idCategory",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ArticleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/historique/commandeClient/{idArticle}" : {
+      "get" : {
+        "summary" : "Renvoi la liste des commandes de clients par article",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des commandes de clients par article",
+        "operationId" : "findHistoriqueCommandeClient",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LigneCommandeClientDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/historique/commandeFournisseur/{idArticle}" : {
+      "get" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Renvoi la liste des des commandes de fournisseurs par article",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des commandes de fournisseurs par article",
+        "operationId" : "findHistoriqueCommandeFournisseur",
+        "parameters" : [ {
+          "name" : "idArticle",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LigneCommandeFournisseurDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/historique/vente/{idArticle}" : {
+      "get" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Renvoi la liste des lignes de ventes par article",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des lignes de ventes par article",
+        "operationId" : "findHistoriqueVente",
+        "parameters" : [ {
+          "name" : "idArticle",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LigneVenteDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/photo/{id}/{title}" : {
+      "post" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Enregistrer une photo article",
+        "description" : "Cette méthode permet d'enregistrer une photo article",
+        "operationId" : "savePhoto",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "file",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        }, {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet article est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet article n'est pas valide"
+          }
+        }
+      }
+    },
+    "/articles/{code}" : {
+      "get" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Rechercher un article",
+        "description" : "Cette méthode permet de rechercher un article par son CODE",
+        "operationId" : "findByCode",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'article a été trouvé dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucun article n'existe dans la BDD avec le CODE fourni"
+          }
+        }
+      }
+    },
+    "/articles/{id}" : {
+      "get" : {
+        "summary" : "Rechercher un article",
+        "description" : "Cette méthode permet de rechercher un article par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "L'article a été trouvé dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucun article n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "articles-api" ],
+        "summary" : "Rechercher un article",
+        "description" : "Cette méthode permet de supprimer un article par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/authenticate/create" : {
+      "post" : {
+        "summary" : "Authentification token",
+        "description" : "Cette méthode d'authentifier et de recupérer un token",
+        "operationId" : "authenticate",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet authenticationRequest est crée",
+            "schema" : {
+              "$ref" : "#/definitions/AuthenticationResponse"
+            }
+          },
+          "400" : {
+            "description" : "L'objet authenticationResponse n'est pas valide"
+          }
+        }
+      }
+    },
+    "/categories" : {
+      "get" : {
+        "summary" : "Renvoi la liste des catégories",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des catégories",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CategoryDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer une catégorie",
+        "description" : "Cette méthode permet d'enregistrer une catégorie",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet categorie est crée",
+            "schema" : {
+              "$ref" : "#/definitions/CategoryDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet categorie n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Modifier une catégorie",
+        "description" : "Cette méthode permet de modifier une catégorie",
+        "operationId" : "update",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet categorie est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CategoryDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet categorie n'est pas valide"
+          }
+        }
+      }
+    },
+    "/categories/{code}" : {
+      "get" : {
+        "tags" : [ "categories-api" ],
+        "summary" : "Rechercher une catégorie",
+        "description" : "Cette méthode permet de rechercher une catégorie par son CODE",
+        "operationId" : "findByCode",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "La catégorie a été trouvé dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/CategoryDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune catégorie n'existe dans la BDD avec le CODE fourni"
+          }
+        }
+      }
+    },
+    "/categories/{id}" : {
+      "get" : {
+        "summary" : "Rechercher une catégorie",
+        "description" : "Cette méthode permet de rechercher une catégorie par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "La catégorie a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/CategoryDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune catégorie n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "categories-api" ],
+        "summary" : "Rechercher une catégorie",
+        "description" : "Cette méthode permet de supprimer une catégorie par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/clients" : {
+      "get" : {
+        "summary" : "Renvoi la liste des clients",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des clients",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ClientDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer un client",
+        "description" : "Cette méthode permet d'enregistrer un client",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet client est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet client n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "clients-api" ],
+        "summary" : "Modifier un client",
+        "description" : "Cette méthode permet de modifier un client",
+        "operationId" : "update",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ClientDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet client est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/ClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/clients/photo/{id}/{title}" : {
+      "post" : {
+        "summary" : "Enregistrer une photo client",
+        "description" : "Cette méthode permet d'enregistrer une photo client",
+        "operationId" : "savePhoto",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet client est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/clients/{id}" : {
+      "get" : {
+        "summary" : "Rechercher un client",
+        "description" : "Cette méthode permet de rechercher un client par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "Le client a été trouvé dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/ClientDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucun client n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Rechercher un client",
+        "description" : "Cette méthode permet de supprimer un client par ID",
+        "operationId" : "delete",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/commandesClients" : {
+      "get" : {
+        "tags" : [ "commandes-clients-api" ],
+        "summary" : "Renvoi la liste des commandes clients",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des commandes clients",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CommandeClientDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer une commande client",
+        "description" : "Cette méthode permet d'enregistrer une commande client",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande client est crée",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande client n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "commandes-clients-api" ],
+        "summary" : "Modifier une commande client",
+        "description" : "Cette méthode permet de modifier une commande client",
+        "operationId" : "update",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CommandeClientDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande client est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesClients/ligneCommandeClient/{idClient}" : {
+      "get" : {
+        "summary" : "Renvoi la liste des lignes de commandes d'un client",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des lignes de commandes d'un client",
+        "operationId" : "findAllLigneCommandeClientByCommandeClientId",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LigneCommandeClientDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/commandesClients/{code}" : {
+      "get" : {
+        "summary" : "Rechercher une commande client",
+        "description" : "Cette méthode permet de rechercher une commande client par son CODE",
+        "operationId" : "findByCode",
+        "responses" : {
+          "200" : {
+            "description" : "La commande client a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune commande client n'existe dans la BDD avec le CODE fourni"
+          }
+        }
+      }
+    },
+    "/commandesClients/{idCommande}/{idLigneCommande}" : {
+      "delete" : {
+        "summary" : "Rechercher une commande client",
+        "description" : "Cette méthode permet de supprimer une commande client par ID",
+        "operationId" : "deleteArticle",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          }
+        }
+      }
+    },
+    "/commandesClients/{idCommande}/{idLigneCommande}/{idArticle}" : {
+      "put" : {
+        "tags" : [ "commandes-clients-api" ],
+        "summary" : "Modifier l'article de la commande client",
+        "description" : "Cette méthode permet de modifier l'article d'une commande client",
+        "operationId" : "updateArticle",
+        "parameters" : [ {
+          "name" : "idCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idLigneCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idArticle",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande client est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesClients/{idCommande}/{idLigneCommande}/{quantite}" : {
+      "put" : {
+        "tags" : [ "commandes-clients-api" ],
+        "summary" : "Modifier la quantité de la commande client",
+        "description" : "Cette méthode permet de modifier la quantité d'une commande client",
+        "operationId" : "updateQuantite",
+        "parameters" : [ {
+          "name" : "idCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idLigneCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "quantite",
+          "in" : "path",
+          "required" : true,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande client est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesClients/{id}" : {
+      "get" : {
+        "summary" : "Rechercher une commande client",
+        "description" : "Cette méthode permet de rechercher une commande client par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "La commande client a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune commande client n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "commandes-clients-api" ],
+        "summary" : "Rechercher une commande client",
+        "description" : "Cette méthode permet de supprimer une commande client par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/commandesClients/{id}/{etatCommande}" : {
+      "put" : {
+        "summary" : "Modifier l'état de la commande client",
+        "description" : "Cette méthode permet de modifier l'état d'une commande client",
+        "operationId" : "updateEtat",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande client est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesClients/{id}/{idClient}" : {
+      "put" : {
+        "summary" : "Modifier le client de la commande client",
+        "description" : "Cette méthode permet de modifier le client d'une commande client",
+        "operationId" : "updateClient",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande client est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeClientDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande client n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs" : {
+      "get" : {
+        "tags" : [ "commandes-fournisseurs-api" ],
+        "summary" : "Renvoi la liste des commandes fournisseurs",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des commandes fournisseurs",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CommandeFournisseurDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer une commande fournisseur",
+        "description" : "Cette méthode permet d'enregistrer une commande fournisseur",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande fournisseur est crée",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande fournisseur n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Modifier une commande fournisseur",
+        "description" : "Cette méthode permet de modifier une commande fournisseur",
+        "operationId" : "update",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande fournisseur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/ligneCommandeFournisseur/{idFournisseur}" : {
+      "get" : {
+        "summary" : "Renvoi la liste des lignes de commandes d'un fournisseur",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des lignes de commandes d'un fournisseur",
+        "operationId" : "findAllLigneCommandeFournisseurByCommandeFournisseurId",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LigneCommandeFournisseurDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{code}" : {
+      "get" : {
+        "tags" : [ "commandes-fournisseurs-api" ],
+        "summary" : "Rechercher une commande fournisseur",
+        "description" : "Cette méthode permet de rechercher une commande fournisseur par son CODE",
+        "operationId" : "findByCode",
+        "parameters" : [ {
+          "name" : "code",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "La commande fournisseur a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune commande fournisseur n'existe dans la BDD avec le CODE fourni"
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{idCommande}/{idLigneCommande}" : {
+      "delete" : {
+        "tags" : [ "commandes-fournisseurs-api" ],
+        "summary" : "Rechercher une commande fournisseur",
+        "description" : "Cette méthode permet de supprimer une commande fournisseur par ID",
+        "operationId" : "deleteArticle",
+        "parameters" : [ {
+          "name" : "idCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idLigneCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{idCommande}/{idLigneCommande}/{idArticle}" : {
+      "put" : {
+        "summary" : "Modifier l'article de la commande fournisseur",
+        "description" : "Cette méthode permet de modifier l'article d'une commande fournisseur",
+        "operationId" : "updateArticle",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande fournisseur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{idCommande}/{idLigneCommande}/{quantite}" : {
+      "put" : {
+        "tags" : [ "commandes-fournisseurs-api" ],
+        "summary" : "Modifier la quantité de la commande fournisseur",
+        "description" : "Cette méthode permet de modifier la quantité d'une commande fournisseur",
+        "operationId" : "updateQuantite",
+        "parameters" : [ {
+          "name" : "idCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idLigneCommande",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "quantite",
+          "in" : "path",
+          "required" : true,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande fournisseur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{id}" : {
+      "get" : {
+        "summary" : "Rechercher une commande fournisseur",
+        "description" : "Cette méthode permet de rechercher une commande fournisseur par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "La commande fournisseur a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune commande fournisseur n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "commandes-fournisseurs-api" ],
+        "summary" : "Rechercher une commande fournisseur",
+        "description" : "Cette méthode permet de supprimer une commande fournisseur par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{id}/{etatCommande}" : {
+      "put" : {
+        "summary" : "Modifier l'état de la commande fournisseur",
+        "description" : "Cette méthode permet de modifier l'état d'une commande fournisseur",
+        "operationId" : "updateEtat",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande fournisseur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/commandesFournisseurs/{id}/{idFournisseur}" : {
+      "put" : {
+        "summary" : "Modifier le fournisseur de la commande fournisseur",
+        "description" : "Cette méthode permet de modifier le fournisseur d'une commande fournisseur",
+        "operationId" : "updateFournisseur",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet commande fournisseur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/CommandeFournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet commande fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/entreprises" : {
+      "get" : {
+        "summary" : "Renvoi la liste des entreprises",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des entreprises",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EntrepriseDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "entreprises-api" ],
+        "summary" : "Enregistrer une entreprise",
+        "description" : "Cette méthode permet d'enregistrer une entreprise",
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EntrepriseDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet entreprise est crée",
+            "schema" : {
+              "$ref" : "#/definitions/EntrepriseDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet entreprise n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "entreprises-api" ],
+        "summary" : "Modifier une entreprise",
+        "description" : "Cette méthode permet de modifier une entreprise",
+        "operationId" : "update",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EntrepriseDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet entreprise est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/EntrepriseDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet entreprise n'est pas valide"
+          }
+        }
+      }
+    },
+    "/entreprises/photo/{id}/{title}" : {
+      "post" : {
+        "tags" : [ "entreprises-api" ],
+        "summary" : "Enregistrer une photo entreprise",
+        "description" : "Cette méthode permet d'enregistrer une photo entreprise",
+        "operationId" : "savePhoto",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "file",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        }, {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet entreprise est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet entreprise n'est pas valide"
+          }
+        }
+      }
+    },
+    "/entreprises/{id}" : {
+      "get" : {
+        "tags" : [ "entreprises-api" ],
+        "summary" : "Rechercher une entreprise",
+        "description" : "Cette méthode permet de rechercher une entreprise par son ID",
+        "operationId" : "findById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'entreprise a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/EntrepriseDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune entreprise n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Rechercher une entreprise",
+        "description" : "Cette méthode permet de supprimer une entreprise par ID",
+        "operationId" : "delete",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/fournisseurs" : {
+      "get" : {
+        "summary" : "Renvoi la liste des fournisseurs",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des fournisseurs",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/FournisseurDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "fournisseurs-api" ],
+        "summary" : "Enregistrer un fournisseur",
+        "description" : "Cette méthode permet d'enregistrer un fournisseur",
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/FournisseurDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet fournisseur est crée",
+            "schema" : {
+              "$ref" : "#/definitions/FournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet fournisseur n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "fournisseurs-api" ],
+        "summary" : "Modifier un fournisseur",
+        "description" : "Cette méthode permet de modifier un fournisseur",
+        "operationId" : "update",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/FournisseurDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet fournisseur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/FournisseurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/fournisseurs/photo/{id}/{title}" : {
+      "post" : {
+        "tags" : [ "fournisseurs-api" ],
+        "summary" : "Enregistrer une photo fournisseur",
+        "description" : "Cette méthode permet d'enregistrer une photo fournisseur",
+        "operationId" : "savePhoto",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "file",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        }, {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet fournisseur est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet fournisseur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/fournisseurs/{id}" : {
+      "get" : {
+        "summary" : "Rechercher un fournisseur",
+        "description" : "Cette méthode permet de rechercher un fournisseur par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "Le fournisseur a été trouvé dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/FournisseurDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucun fournisseur n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "fournisseurs-api" ],
+        "summary" : "Rechercher un fournisseur",
+        "description" : "Cette méthode permet de supprimer un fournisseur par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/mvtStks/article/{idArticle}" : {
+      "get" : {
+        "summary" : "Renvoi la liste des mvtStks id article",
+        "description" : "Cette méthode permet de rechercher la liste des mvtStks par Article ID",
+        "operationId" : "mvtStkArticle",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MvtStkDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mvtStks/correctionNegative" : {
+      "post" : {
+        "summary" : "Enregistrer une entrée mvtStk",
+        "description" : "Cette méthode permet d'enregistrer une correction négative mvtStk",
+        "operationId" : "correctionStockNegative",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet mvtStk est crée",
+            "schema" : {
+              "$ref" : "#/definitions/MvtStkDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet mvtStk n'est pas valide"
+          }
+        }
+      }
+    },
+    "/mvtStks/correctionPositive" : {
+      "post" : {
+        "summary" : "Enregistrer une entrée mvtStk",
+        "description" : "Cette méthode permet d'enregistrer une correction positive mvtStk",
+        "operationId" : "correctionStockPositive",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet mvtStk est crée",
+            "schema" : {
+              "$ref" : "#/definitions/MvtStkDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet mvtStk n'est pas valide"
+          }
+        }
+      }
+    },
+    "/mvtStks/entree" : {
+      "post" : {
+        "tags" : [ "mvt-stks-api" ],
+        "summary" : "Enregistrer une entrée mvtStk",
+        "description" : "Cette méthode permet d'enregistrer une entrée mvtStk",
+        "operationId" : "entreeStock",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/MvtStkDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet mvtStk est crée",
+            "schema" : {
+              "$ref" : "#/definitions/MvtStkDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet mvtStk n'est pas valide"
+          }
+        }
+      }
+    },
+    "/mvtStks/sortie" : {
+      "post" : {
+        "tags" : [ "mvt-stks-api" ],
+        "summary" : "Enregistrer une entrée mvtStk",
+        "description" : "Cette méthode permet d'enregistrer une sortie mvtStk",
+        "operationId" : "sortieStock",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/MvtStkDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet mvtStk est crée",
+            "schema" : {
+              "$ref" : "#/definitions/MvtStkDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet mvtStk n'est pas valide"
+          }
+        }
+      }
+    },
+    "/mvtStks/stockReel/{idArticle}" : {
+      "get" : {
+        "summary" : "Renvoyer le nombre total de mvtStk",
+        "description" : "Cette méthode permet de renvoyer le nombre de mvtStk",
+        "operationId" : "stockReelArticle",
+        "responses" : {
+          "200" : {
+            "description" : "Le nombre total de mvtStk a été trouvé dans la BDD",
+            "schema" : {
+              "type" : "number"
+            }
+          },
+          "400" : {
+            "description" : "Aucun nombre mvtStk n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      }
+    },
+    "/utilisateurs" : {
+      "get" : {
+        "tags" : [ "utilisateurs-api" ],
+        "summary" : "Renvoi la liste des utilisateurs",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des utilisateurs",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer un utilisateur",
+        "description" : "Cette méthode permet d'enregistrer un utilisateur",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet utilisateur est crée",
+            "schema" : {
+              "$ref" : "#/definitions/UtilisateurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet utilisateur n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "utilisateurs-api" ],
+        "summary" : "Modifier un utilisateur",
+        "description" : "Cette méthode permet de modifier un utilisateur",
+        "operationId" : "update",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UtilisateurDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet utilisateur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/UtilisateurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet utilisateur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/utilisateurs/changePassword" : {
+      "put" : {
+        "tags" : [ "utilisateurs-api" ],
+        "summary" : "Modifier un mot de passe utilisateur",
+        "description" : "Cette méthode permet de modifier un mot de passe utilisateur",
+        "operationId" : "updatePassword",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ChangePasswordUserDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet utilisateur est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/UtilisateurDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet utilisateur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/utilisateurs/photo/{id}/{title}" : {
+      "post" : {
+        "tags" : [ "utilisateurs-api" ],
+        "summary" : "Enregistrer une photo utilisateur",
+        "description" : "Cette méthode permet d'enregistrer une photo utilisateur",
+        "operationId" : "savePhoto",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "file",
+          "in" : "formData",
+          "required" : true,
+          "type" : "file"
+        }, {
+          "name" : "title",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet utilisateur est crée",
+            "schema" : {
+              "$ref" : "#/definitions/ArticleDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet utilisateur n'est pas valide"
+          }
+        }
+      }
+    },
+    "/utilisateurs/{id}" : {
+      "get" : {
+        "summary" : "Rechercher un utilisateur",
+        "description" : "Cette méthode permet de rechercher un utilisateur par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "Le utilisateur a été trouvé dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/UtilisateurDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucun utilisateur n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "utilisateurs-api" ],
+        "summary" : "Rechercher un utilisateur",
+        "description" : "Cette méthode permet de supprimer un utilisateur par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/ventes" : {
+      "get" : {
+        "summary" : "Renvoi la liste des ventes",
+        "description" : "Cette méthode permet de rechercher et renvoyer la liste des ventes",
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/VenteDto"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Enregistrer une vente",
+        "description" : "Cette méthode permet d'enregistrer une vente",
+        "operationId" : "save",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet vente est crée",
+            "schema" : {
+              "$ref" : "#/definitions/VenteDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet vente n'est pas valide"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Modifier une vente",
+        "description" : "Cette méthode permet de modifier une vente",
+        "operationId" : "update",
+        "responses" : {
+          "200" : {
+            "description" : "L'objet vente est modifié",
+            "schema" : {
+              "$ref" : "#/definitions/VenteDto"
+            }
+          },
+          "400" : {
+            "description" : "L'objet vente n'est pas valide"
+          }
+        }
+      }
+    },
+    "/ventes/{id}" : {
+      "get" : {
+        "summary" : "Rechercher une vente",
+        "description" : "Cette méthode permet de rechercher une vente par son ID",
+        "operationId" : "findById",
+        "responses" : {
+          "200" : {
+            "description" : "La vente a été trouvée dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/VenteDto"
+            }
+          },
+          "404" : {
+            "description" : "Aucune vente n'existe dans la BDD avec l'ID fourni"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Rechercher une vente",
+        "description" : "Cette méthode permet de supprimer une vente par ID",
+        "operationId" : "delete",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AdresseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "adresse1" : {
+          "type" : "string"
+        },
+        "adresse2" : {
+          "type" : "string"
+        },
+        "ville" : {
+          "type" : "string"
+        },
+        "codePostal" : {
+          "type" : "string"
+        },
+        "pays" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ArticleDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "designation" : {
+          "type" : "string"
+        },
+        "prixUnitaireHt" : {
+          "type" : "number"
+        },
+        "tauxTva" : {
+          "type" : "number"
+        },
+        "prixUnitaireTtc" : {
+          "type" : "number"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "categoryDto" : {
+          "$ref" : "#/definitions/CategoryDto"
+        },
+        "ligneVenteDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneVenteDto"
+          }
+        },
+        "ligneCommandeClientDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeClientDto"
+          }
+        },
+        "ligneCommandeFournisseurDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeFournisseurDto"
+          }
+        },
+        "mvtStkDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MvtStkDto"
+          }
+        }
+      }
+    },
+    "AuthenticationRequest" : {
+      "type" : "object",
+      "properties" : {
+        "login" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "AuthenticationResponse" : {
+      "type" : "object",
+      "properties" : {
+        "accessToken" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CategoryDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "designation" : {
+          "type" : "string"
+        },
+        "articleDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ArticleDto"
+          }
+        }
+      }
+    },
+    "ChangePasswordUserDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "motDePasse" : {
+          "type" : "string"
+        },
+        "confirmMotDePasse" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ClientDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "adresseDto" : {
+          "$ref" : "#/definitions/AdresseDto"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "numeroTelephone" : {
+          "type" : "string"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "commandeClientDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CommandeClientDto"
+          }
+        }
+      }
+    },
+    "CommandeClientDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "etatCommande" : {
+          "type" : "string",
+          "enum" : [ "EN_PREPARATION", "VALIDEE", "LIVREE" ]
+        },
+        "dateCommande" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "clientDto" : {
+          "$ref" : "#/definitions/ClientDto"
+        },
+        "ligneCommandeClientDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeClientDto"
+          }
+        }
+      }
+    },
+    "CommandeFournisseurDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "etatCommande" : {
+          "type" : "string",
+          "enum" : [ "EN_PREPARATION", "VALIDEE", "LIVREE" ]
+        },
+        "dateCommande" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "fournisseurDto" : {
+          "$ref" : "#/definitions/FournisseurDto"
+        },
+        "ligneCommandeFournisseurDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneCommandeFournisseurDto"
+          }
+        }
+      }
+    },
+    "EntrepriseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "adresseDto" : {
+          "$ref" : "#/definitions/AdresseDto"
+        },
+        "codeFiscal" : {
+          "type" : "string"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "numeroTelephone" : {
+          "type" : "string"
+        },
+        "siteWeb" : {
+          "type" : "string"
+        },
+        "utilisateurDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/UtilisateurDto"
+          }
+        }
+      }
+    },
+    "FournisseurDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "adresseDto" : {
+          "$ref" : "#/definitions/AdresseDto"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "numeroTelephone" : {
+          "type" : "string"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "commandeFournisseurDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CommandeFournisseurDto"
+          }
+        }
+      }
+    },
+    "LigneCommandeClientDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "prixUnitaire" : {
+          "type" : "number"
+        },
+        "articleDto" : {
+          "$ref" : "#/definitions/ArticleDto"
+        },
+        "idEntreprise" : {
+          "type" : "string"
+        },
+        "commandeClientDto" : {
+          "$ref" : "#/definitions/CommandeClientDto"
+        }
+      }
+    },
+    "LigneCommandeFournisseurDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "prixUnitaire" : {
+          "type" : "number"
+        },
+        "articleDto" : {
+          "$ref" : "#/definitions/ArticleDto"
+        },
+        "idEntreprise" : {
+          "type" : "string"
+        },
+        "commandeFournisseurDto" : {
+          "$ref" : "#/definitions/CommandeFournisseurDto"
+        }
+      }
+    },
+    "LigneVenteDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "prixUnitaire" : {
+          "type" : "number"
+        },
+        "idEntreprise" : {
+          "type" : "string"
+        },
+        "venteDto" : {
+          "$ref" : "#/definitions/VenteDto"
+        },
+        "articleDto" : {
+          "$ref" : "#/definitions/ArticleDto"
+        }
+      }
+    },
+    "MvtStkDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dateMvt" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "quantite" : {
+          "type" : "number"
+        },
+        "typeMvtStk" : {
+          "type" : "string",
+          "enum" : [ "ENTREE", "SORTIE", "CORRECTION_POS", "CORRECTION_NEG" ]
+        },
+        "sourceMvtStk" : {
+          "type" : "string",
+          "enum" : [ "COMMANDE_CLIENT", "COMMANDE_FOURNISSEUR", "VENTE" ]
+        },
+        "idEntreprise" : {
+          "type" : "string"
+        },
+        "articleDto" : {
+          "$ref" : "#/definitions/ArticleDto"
+        }
+      }
+    },
+    "RoleDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "utilisateurDto" : {
+          "$ref" : "#/definitions/UtilisateurDto"
+        }
+      }
+    },
+    "UtilisateurDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "dateDeNaissance" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "motDePasse" : {
+          "type" : "string"
+        },
+        "adresseDto" : {
+          "$ref" : "#/definitions/AdresseDto"
+        },
+        "photo" : {
+          "type" : "string"
+        },
+        "entrepriseDto" : {
+          "$ref" : "#/definitions/EntrepriseDto"
+        },
+        "roleDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RoleDto"
+          }
+        }
+      }
+    },
+    "VenteDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "dateVente" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "commentaire" : {
+          "type" : "string"
+        },
+        "ligneVenteDtos" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LigneVenteDto"
+          }
+        }
+      }
+    }
+  }
+}
